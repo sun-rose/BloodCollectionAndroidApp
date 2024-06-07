@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_logo" />
+        android:src="@drawable/profile_image" />
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
