@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BloodCollectionAndroidApp</string>
+    <string name="title_text">Blood Collection Android App</string>
 </resources>

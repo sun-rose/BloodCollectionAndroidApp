@@ -12,9 +12,10 @@
         android:id="@+id/logo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_logo"
+        android:src="@mipmap/blood_logo"
         android:layout_marginBottom="16dp"
-        android:contentDescription="@string/logo_desc"/>
+        android:contentDescription="@string/title_text"/>
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

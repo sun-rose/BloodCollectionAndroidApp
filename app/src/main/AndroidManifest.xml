@@ -13,13 +13,14 @@
         android:theme="@style/Theme.BloodCollectionAndroidApp"
         tools:targetApi="31">
         <activity
+            android:name=".HomePagePortion.HomePage"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
-
         <activity
             android:name=".StartActivity"
             android:exported="false" />
-
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -29,7 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
