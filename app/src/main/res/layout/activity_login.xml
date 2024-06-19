@@ -114,4 +114,5 @@
         android:text="Sign Up"
         android:textColor="@android:color/holo_red_dark"/>
 </LinearLayout>
+
 </LinearLayout>
