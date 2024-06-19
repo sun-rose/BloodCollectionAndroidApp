@@ -85,8 +85,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 Map<String, Object> user = new HashMap<>();
                                 user.put("email", txt_email);
                                 user.put("password", txt_password);
-                                //user.put("username", txt_username);
-                                //user.put("imageUrl", "default");
+                                user.put("username", txt_username);
+                                user.put("imageUrl", "default");
                                 reference.setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -110,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                         }
                     });
+
         }
 
 
