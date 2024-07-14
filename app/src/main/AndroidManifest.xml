@@ -2,21 +2,57 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="your.application.package.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/blood_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/blood_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BloodCollectionAndroidApp"
         tools:targetApi="31">
         <activity
-            android:name=".HomePagePortion.HomePage"
+            android:name=".FindDonorFragment.SendRequestDonor"
+            android:exported="false" />
+        <activity
+            android:name=".FindDonorFragment.HostingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FindDonorFragment.map_page"
+            android:exported="false" />
+        <activity
+            android:name=".MainPage"
+            android:exported="false" />
+        <activity
+            android:name=".HomePageFragment.HomepageView"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileFragment.Profile"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RequestFragment.Request"
+            android:exported="false" />
+        <activity
+            android:name=".FindDonorFragment.FindDonor"
             android:exported="false" />
         <activity
             android:name=".StartActivity"
@@ -30,6 +66,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--
+  <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="12451000" />
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA70Ibp3eebDa3Lv0fcttb5SCTxBJQaxTg" />
     </application>
 
 </manifest>

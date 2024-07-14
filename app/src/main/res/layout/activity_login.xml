@@ -12,7 +12,7 @@
         android:id="@+id/logo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@mipmap/blood_logo"
+        android:src="@mipmap/blood_logo_round"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/title_text"/>
 
@@ -34,7 +34,7 @@
         android:layout_width="40dp"
         android:layout_height="2dp"
         android:layout_below="@id/welcome_back"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:layout_centerHorizontal="true"
         android:background="#FF0000" />
 </LinearLayout>

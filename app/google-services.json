@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "656546203722",
+    "firebase_url": "https://chatappelubilu-default-rtdb.firebaseio.com",
+    "project_id": "chatappelubilu",
+    "storage_bucket": "chatappelubilu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656546203722:android:313ced0dafdb460f207eb3",
+        "android_client_info": {
+          "package_name": "com.example.bloodcollectionandroidapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-lVQNI4eBReHqoDZqeGMzh1UB-VSEXl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656546203722:android:7bb869c5af88df59207eb3",
+        "android_client_info": {
+          "package_name": "com.example.pracmyapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-lVQNI4eBReHqoDZqeGMzh1UB-VSEXl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

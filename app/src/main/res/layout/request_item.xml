@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/request_item_background"
+    android:padding="16dp"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/blood_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A+"
+        android:textSize="18sp"
+        android:textColor="@android:color/holo_red_dark" />
+
+    <TextView
+        android:id="@+id/donor_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tarique Farhan Rushow"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/last_donate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last Donate: 4 months ago"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location: Dhaka Medical College Hospital"
+        android:layout_marginTop="4dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:weightSum="3"
+        >
+
+        <Button
+            android:id="@+id/request_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_marginRight="11dp"
+            android:text="Request Pending"
+            android:textSize="11sp"
+            android:background="@android:color/holo_red_light"
+            android:padding="1dp"
+            />
+
+        <Button
+            android:id="@+id/contact_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="11sp"
+            android:text="Contact"
+            android:background="@android:color/holo_green_light"
+            android:padding="1dp"
+
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
