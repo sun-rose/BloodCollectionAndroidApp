@@ -250,10 +250,10 @@ getActivity().getSupportFragmentManager().beginTransaction().commit();
         userDetails.put("location", profileLocation.getText().toString());
         userDetails.put("blood_group", profileBloodGroup.getText().toString());
         userDetails.put("user_mode", mode_switch_text);
-
+        userDetails.put("user_id", fUser.getUid());
 
         reference.updateChildren(userDetails)
-                .addOnSuccessListener(aVoid -> {
+                .addOnSuccessListener(aVoid                        -> {
                     Log.d(TAG, "Your details updated successfully.");
                     Toast.makeText(requireContext(), "User details updated.", Toast.LENGTH_SHORT).show();
                 })
@@ -272,6 +272,7 @@ getActivity().getSupportFragmentManager().beginTransaction().commit();
         userDetails.put("location", profileLocation.getText().toString());
         userDetails.put("blood_group", profileBloodGroup.getText().toString());
         userDetails.put("user_mode", mode_switch_text);
+        userDetails.put("user_id", fUser.getUid());
 
         reference.setValue(userDetails)
                 .addOnSuccessListener(aVoid -> {
@@ -280,7 +281,7 @@ getActivity().getSupportFragmentManager().beginTransaction().commit();
                 })
                 .addOnFailureListener(e -> {
                     Log.d(TAG, "onFailure: " + e);
-                    Toast.makeText(requireContext(), "Failed to update user details.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Failed to add user details.", Toast.LENGTH_SHORT).show();
                 });
 
     }

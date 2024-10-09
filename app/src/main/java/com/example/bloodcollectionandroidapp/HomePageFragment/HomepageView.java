@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.bloodcollectionandroidapp.FindDonorFragment.Donor;
 import com.example.bloodcollectionandroidapp.ProfileFragment.User;
 import com.example.bloodcollectionandroidapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,7 +50,8 @@ public class HomepageView extends Fragment {
     private RecyclerView recyclerView;
     private BloodRequestAdapter bloodRequestAdapter;
     private List<BloodRequest> bloodRequestList;
-    private String dateToday ="";
+    private List<Donor> donList;
+    private String dateToday = "";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -57,7 +60,6 @@ public class HomepageView extends Fragment {
     public HomepageView() {
         // Required empty public constructor
     }
-
 
 
     /**
@@ -90,7 +92,7 @@ public class HomepageView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_homepage_view, container, false);
+        View view = inflater.inflate(R.layout.fragment_homepage_view, container, false);
 
         recyclerView = view.findViewById(R.id.recycler_home_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -98,23 +100,19 @@ public class HomepageView extends Fragment {
         Date todaysdate = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        dateToday= format.format(todaysdate);
+        dateToday = format.format(todaysdate);
 
         bloodRequestList = new ArrayList<>();
 
         readUsers();
+
         return view;
-
-
-
 
     }
 
+
     private void readUsers() {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        final String current_user= FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
-        Log.d("Current user ID", ":" + current_user);
-
 
         if (firebaseUser == null) {
             // Handle the case where the user is not logged in
@@ -122,46 +120,77 @@ public class HomepageView extends Fragment {
             return;
         }
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("UsersDetails");
-        reference.addValueEventListener(new ValueEventListener() {
+        final String current_user = firebaseUser.getUid();  // Avoid calling getUid() before the null check
+        Log.d("Current user ID", ":" + current_user);
+
+        // Reference to the "UsersDetails" node in Firebase
+        DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("UsersDetails");
+
+        // Reference to the "blPost" node in Firebase
+        DatabaseReference bloodPostReference = FirebaseDatabase.getInstance().getReference("blPost");
+
+        userReference.child(current_user).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot userSnapshot) {
+                if (userSnapshot.exists()) {  // Corrected: checking if user data exists
+                    String storedUsername = userSnapshot.child("username").getValue(String.class);
 
-                bloodRequestList.clear();
-                Log.d("DataChange", "Data changed, snapshot count: " + snapshot.getChildrenCount());
+                    // Query for blood requests in "blPost" that match the current user (Donor)
+                    bloodPostReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshotSecond) {
+                            bloodRequestList.clear();  // Clear the list before adding new data
 
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    BloodRequest taker_list = dataSnapshot.getValue(BloodRequest.class);
-                    if (taker_list != null) {
-                        //Log.d("DataChange", "User ID from snapshot: " + dataSnapshot.child("user_id").getValue(String.class));
-                        taker_list.setUser_id(dataSnapshot.getKey());
-                        //Log.d("snapshotID", "snapshotID: " +taker_list.getUser_id() );
-                        taker_list.setName(dataSnapshot.child("username").getValue(String.class));
-                        taker_list.setUser_mode(dataSnapshot.child("user_mode").getValue(String.class));
-                        taker_list.setLocation(dataSnapshot.child("location").getValue(String.class));
-                        taker_list.setBloodType(dataSnapshot.child("blood_group").getValue(String.class));
+                            // Iterate over each post in "blPost"
+                            for (DataSnapshot dsnapshot : dataSnapshotSecond.getChildren()) {
+                                for (DataSnapshot thstep : dsnapshot.getChildren()) {
+                                    // Initialize BloodRequest and populate it with data from the snapshot
+                                    BloodRequest level2 = thstep.getValue(BloodRequest.class);
 
-                        if (taker_list.getUser_id()!= null && !taker_list.getUser_id().equals(current_user)) {
-                            if ("Taker".equalsIgnoreCase(taker_list.getUser_mode())) {
-                                bloodRequestList.add(new BloodRequest(
-                                        taker_list.getName(),
-                                        dateToday, // Ensure dateToday is properly defined
-                                        taker_list.getLocation(),
-                                        taker_list.getBloodType()
-                                ));
+                                    // Null check for level2 object
+                                    if (level2 != null) {
+                                        // Set BloodRequest properties from the snapshot
+                                        level2.setId(thstep.getKey());
+                                        level2.setToDonorName(thstep.child("ReqDonorName").getValue(String.class));
+                                        level2.setFromTakerName(thstep.child("FromTakerName").getValue(String.class));
+                                        level2.setPost_date(thstep.child("PostedOn").getValue(String.class));  // Correct field for post date
+                                        level2.setLocation(thstep.child("location").getValue(String.class));
+                                        level2.setBloodType(thstep.child("ReqBloodType").getValue(String.class));
+
+                                        // Check if the current user matches the donor in the request
+                                        if (storedUsername != null && !storedUsername.equalsIgnoreCase(current_user)) {
+                                            // Add the blood request to the list if the user is a donor
+                                            bloodRequestList.add(new BloodRequest(
+                                                    level2.getToDonorName(),
+                                                    level2.getFromTakerName(),
+                                                    level2.getPost_date(),  // Use the correct post date field
+                                                    level2.getLocation(),
+                                                    level2.getBloodType()
+                                            ));
+                                        }
+                                    } else {
+                                        Log.e("DataChange", "BloodRequest object is null.");
+                                    }
+                                }
+                            }
+
+                            // Notify adapter about data changes
+                            if (bloodRequestAdapter == null) {
+                                bloodRequestAdapter = new BloodRequestAdapter(bloodRequestList, getContext());
+                                recyclerView.setAdapter(bloodRequestAdapter);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                            } else {
+                                bloodRequestAdapter.notifyDataSetChanged();
                             }
                         }
-                    } else {
-                        Log.e("DataChange", "BloodRequest object is null");
-                    }
-                }
 
-                if (bloodRequestAdapter == null) {
-                    bloodRequestAdapter = new BloodRequestAdapter(bloodRequestList, getContext());
-                    recyclerView.setAdapter(bloodRequestAdapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.e("DatabaseError", error.getMessage());
+                        }
+                    });
                 } else {
-                    bloodRequestAdapter.notifyDataSetChanged();
+                    Log.e("DataChange", "User data does not exist.");
                 }
             }
 
@@ -171,4 +200,22 @@ public class HomepageView extends Fragment {
             }
         });
     }
+
+
+
+
+
+    // Helper method to get the current date as a formatted string
+    private String getCurrentDate() {
+        // Example format: "dd/MM/yyyy"
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        return sdf.format(new Date());
+    }
+
+
+
+
+
 }
+
+

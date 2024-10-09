@@ -7,16 +7,10 @@
 
     >
 
-    <LinearLayout
-        android:id="@+id/request_list"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- Individual request items will be added dynamically -->
-
-    </LinearLayout>
+        android:layout_height="wrap_content" />
 
 
 

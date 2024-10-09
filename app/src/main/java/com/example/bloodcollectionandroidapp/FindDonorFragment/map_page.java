@@ -1,7 +1,6 @@
 package com.example.bloodcollectionandroidapp.FindDonorFragment;
 
 import static android.app.PendingIntent.getActivity;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,9 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
 
 import com.example.bloodcollectionandroidapp.MainPage;
 import com.example.bloodcollectionandroidapp.ProfileFragment.UserDetails;
@@ -88,7 +85,7 @@ public class map_page extends AppCompatActivity implements OnMapReadyCallback {
              currentUser = FirebaseAuth.getInstance().getCurrentUser();
              //DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUid());
 
-        setButton.setOnClickListener(v -> {
+            setButton.setOnClickListener(v -> {
 
 
             Intent intent = new Intent(map_page.this, MainPage.class);

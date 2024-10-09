@@ -1,85 +1,112 @@
 package com.example.bloodcollectionandroidapp.HomePageFragment;
 
 public class BloodRequest {
+    private String id;
 
 
 
-    public void setDate(String date) {
-        this.date = date;
+    private String toDonorName;
+    private String fromTakerName;
+    private String location;
+    private String bloodType;
+    private String post_date;
+
+    public String getReqBloodStatus() {
+        return ReqBloodStatus;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setReqBloodStatus(String reqBloodStatus) {
+        ReqBloodStatus = reqBloodStatus;
+    }
+
+    private String ReqBloodStatus;
+
+    public BloodRequest(String fromTakerName, String today, String location, String bloodType) {
+    this.fromTakerName=fromTakerName;
+        this.post_date=today;
+        this.location=location;
+        this.bloodType=bloodType;
+    }
+
+
+
+    // Default constructor for Firebase
+    public BloodRequest(){}
+
+    // Constructor
+    public BloodRequest(String toDonorName, String location, String bloodType) {
+        this.toDonorName = toDonorName;
+
+        this.location = location;
+        this.bloodType = bloodType;
+    }
+    public BloodRequest(String toDonorName, String fromTakerName, String date, String location, String bloodType) {
+        this.toDonorName = toDonorName;
+        this.fromTakerName = fromTakerName;
+        this.post_date = date;
+        this.location = location;
+        this.bloodType = bloodType;
+    }
+    public BloodRequest(String toDonorName, String fromTakerName, String date, String location, String bloodType, String reqBloodStatus) {
+        this.toDonorName = toDonorName;
+        this.fromTakerName = fromTakerName;
+        this.post_date = date;
+        this.location = location;
+        this.bloodType = bloodType;
+        this.ReqBloodStatus=reqBloodStatus;
+    }
+    // Getters and setters
+
+    public String getToDonorName() {
+        return toDonorName;
+    }
+
+    public void setToDonorName(String toDonorName) {
+        this.toDonorName = toDonorName;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFromTakerName() {
+        return fromTakerName;
+    }
+
+    public void setFromTakerName(String fromTakerName) {
+        this.fromTakerName = fromTakerName;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     public void setLocation(String location) {
         this.location = location;
     }
 
+    public String getBloodType() {
+        return bloodType;
+    }
+
     public void setBloodType(String bloodType) {
         this.bloodType = bloodType;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getPost_date() {
+        return post_date;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setPost_date(String post_date) {
+        this.post_date = post_date;
     }
 
-    //model
-        private String user_id;
-        private String name;
-
-    public String getUser_mode() {
-        return user_mode;
-    }
-
-    public void setUser_mode(String user_mode) {
-        this.user_mode = user_mode;
-    }
-
-    private String user_mode;
-
-    public BloodRequest(String user_id, String bloodType, String date, String name, String location, String user_mode) {
-        this.user_id = user_id;
-        this.bloodType = bloodType;
-        this.date = date;
-        this.name = name;
-        this.location = location;
-        this.user_mode= user_mode;
-    }
-
-    private String date;
-        private String location;
-        private String bloodType;
 
 
-    public BloodRequest(String name, String date, String location, String bloodType) {
-            this.name = name;
-            this.date = date;
-            this.location = location;
-            this.bloodType = bloodType;
-        }
 
-    public BloodRequest() {
-    }
-
-    public String getName() {
-            return name;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public String getLocation() {
-            return location;
-        }
-
-        public String getBloodType() {
-            return bloodType;
-        }
-
+    //  Getters and setters
 }

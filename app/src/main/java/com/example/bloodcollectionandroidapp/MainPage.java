@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.bloodcollectionandroidapp.FindDonorFragment.Donor;
+import com.example.bloodcollectionandroidapp.FindDonorFragment.DonorAdapter;
 import com.example.bloodcollectionandroidapp.FindDonorFragment.FindDonor;
 import com.example.bloodcollectionandroidapp.FindDonorFragment.request_2_donor;
 import com.example.bloodcollectionandroidapp.HomePageFragment.HomepageView;
@@ -64,7 +66,13 @@ public class MainPage extends AppCompatActivity {
                                     .commit();
                             // bottomNavigationView.setSelectedItemId(R.id.navigation_find_donor);
                         } else if (intent.hasExtra("address") && intent.hasExtra("blGroup")) {
-                            selectedFragment = new request_2_donor();
+                            selectedFragment = new FindDonor();
+                            String location = getIntent().getStringExtra("address");
+                            String blGroup = getIntent().getStringExtra("blGroup");
+                            Bundle args = new Bundle();
+                            args.putString("address", location);
+                            args.putString("blGroup", blGroup);
+                            selectedFragment.setArguments(args);
                             getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.fragment_container, selectedFragment)
                                     .commit();
@@ -72,7 +80,7 @@ public class MainPage extends AppCompatActivity {
                         }
                         else {
                             String source = getIntent().getStringExtra("back");
-                            if (source != null &&source.equals("request_2_donor")) {
+                            if (source != null &&source.equals("back")) {
                                 selectedFragment = new FindDonor();
                                 getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.fragment_container, selectedFragment)
@@ -109,7 +117,7 @@ public class MainPage extends AppCompatActivity {
 
             bottomNavigationView.setSelectedItemId(R.id.navigation_find_donor);
         }
-        else if(source != null && source.equals("request_2_donor")) {
+        else if(source != null && source.equals("back")) {
 
             bottomNavigationView.setSelectedItemId(R.id.navigation_find_donor);
         }
